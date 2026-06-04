@@ -51,7 +51,7 @@
 ## 개발 환경
 
 ```powershell
-Set-Location "c:\Users\usejen_id\study\CursorAI\src\MagicSquare_XX"
+Set-Location "c:\Users\usejen_id\study\CursorAI\MagicSquare_XX"
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
 pip install -e ".[dev]"
@@ -94,6 +94,7 @@ python -m pytest tests/ -v
 MagicSquare_XX/
 ├── pyproject.toml
 ├── README.md
+├── TODO_RED.md              # RED 선행·실행 체크리스트
 ├── src/
 │   ├── entity/
 │   │   └── constants.py      # SSOT (34, 4, 16, 0)
@@ -116,10 +117,12 @@ MagicSquare_XX/
 
 | 문서 | 설명 |
 |------|------|
+| [**TODO_RED.md**](TODO_RED.md) | RED 선행·실행 체크리스트 SSOT (상세) |
 | [docs/PRD.md](docs/PRD.md) | PRD (이 폴더에 작성 예정) |
 | [Report/01](Report/01.MagicSquare_ProblemDefinition_Report.md) | Mom Test · R-G-I-O (작성 예정) |
-| [MagicSquare_1004 PRD](../MagicSquare_1004/docs/PRD.md) | 참고 SSOT |
-| [MagicSquare_1004 Report/01](../MagicSquare_1004/Report/01.MagicSquare_ProblemDefinition_Report.md) | 참고 Mom Test 보고서 |
+| [MagicSquare_1004 PRD](../src/MagicSquare_1004/docs/PRD.md) | 참고 SSOT |
+| [MagicSquare_1004 Report/01](../src/MagicSquare_1004/Report/01.MagicSquare_ProblemDefinition_Report.md) | 참고 Mom Test 보고서 |
+| [MagicSquare_1004 Report/03](../src/MagicSquare_1004/Report/03.MagicSquare_Session4_RED_TestPlan_Report.md) | D-LOC-01 · U-IN-01/02 RED 설계표 |
 
 ## 범위
 
@@ -139,15 +142,67 @@ MagicSquare_XX/
 | E006 | 해 없음 | entity → boundary |
 | E007 | 해 다중 | entity → boundary |
 
-## 현재 상태 · 다음 단계
+## RED 단계 선행 체크리스트
 
-| 항목 | 상태 |
-|------|------|
-| README | ✅ |
-| ECB Harness (`pyproject.toml`, `src/`, `tests/`) | ✅ |
-| PRD · Report/01 · `.cursorrules` | ⏳ |
-| D-* / U-* RED·GREEN 테스트 | ⏳ |
+> `/tdd-red`·`/red-skeleton` **전**에 완료할 항목. 상세·실행 단계는 [TODO_RED.md](TODO_RED.md) 참고.
 
-1. Mom Test → Report/01 · PRD  
-2. 세션 3 — Rule · Command · Skill · Test Loop  
-3. `/red-test-plan` → `/red-skeleton` → `/tdd-red`
+**구분:** **선행 (Ask)** = 설계표·C2C · `src/` 수정 금지 → **실행** = `tests/`만 · pytest **FAIL**
+
+### 1. 프로젝트 기반 (공통)
+
+**도메인 · 문서**
+
+- [x] Mom Test · 진질 문제 한 문장 (본 README)
+- [ ] `docs/PRD.md` (로컬) — [1004 PRD](../src/MagicSquare_1004/docs/PRD.md) 참조 중
+- [ ] `Report/01` (로컬)
+- [x] 도메인 규약 · 1-index · 10선=34 (`.cursorrules`)
+
+**Cursor · ECB Harness**
+
+- [x] `.cursorrules` · Skill `magic-square-tdd` · `reference.md` (`D-*` 7개)
+- [x] Command `/tdd-red`, `/review-ecb`
+- [ ] Command `/red-test-plan`, `/red-skeleton` (XX 미추가)
+- [x] `pyproject.toml` · ECB `src/`·`tests/` 골격 · `grid_g1` · harness smoke
+- [ ] venv · `pip install -e ".[dev]"` · `pytest tests/test_harness_ecb.py` **4 passed**
+
+### 2. RED 묶음 1건당 선행 (`/red-test-plan`)
+
+묶음당 **모두** [x] 후 `/red-skeleton` 또는 `/tdd-red` 진행.
+
+**선언 · C2C**
+
+- [ ] `Phase: red | Layer: … | Track: Logic|UI | Test ID: …` 선언
+- [ ] PRD `FR-*` ↔ Test ID ↔ 함수명 · Given / When / Then
+- [ ] `src/` 미수정 · GREEN/REFACTOR 미착수 · skip/xfail 없음
+
+**Logic (`D-*`)** — Mock 금지 · E001~E005 entity emit 금지
+
+- [ ] RED 설계표 · 10선(`\`, `/`) 누락 없음(해당 시) · pytest 경로 확정
+
+**Boundary (`U-*`)** — control/entity Mock 허용
+
+- [ ] Given→Then(`"E00x"`) · `validate_input` 등 When · 미호출 검증 계획
+
+**10선·C2C 빠른 점검 (Logic 설계 시)**
+
+- [ ] `grid_g1` 또는 명시 격자 · Then 줄 명시 · 좌표 1-index · E004는 boundary 관점
+
+### 3. 묶음별 선행 완료 여부
+
+| Test ID | Track | 선행 (Ask) | RED 실행 |
+|---------|-------|------------|----------|
+| **D-LOC-01** | Logic | [x] | [ ] |
+| **U-IN-01**, **U-IN-02** | UI | [x] | [ ] |
+| D-VAL-03 → D-VAL-05 → … | Logic | [ ] | [ ] |
+| U-IN-03~05 · U-OUT-01~02 | UI | [ ] | [ ] |
+
+설계 근거: [Report/03 D-LOC-01 · U-IN](../src/MagicSquare_1004/Report/03.MagicSquare_Session4_RED_TestPlan_Report.md)
+
+### 4. 권장 다음 (한 묶음씩)
+
+1. [ ] §1 venv · harness **4 passed**
+2. [ ] **D-LOC-01** — `/red-skeleton` → `/tdd-red` → FAIL
+3. [ ] **U-IN-01/02** — boundary RED → FAIL
+4. [ ] **D-VAL-03** — 선행 AAA 설계 후 RED
+
+**RED 선행 완료 정의:** §2 전부 [x] + §3 해당 묶음 «선행» [x] ([TODO_RED.md §7](TODO_RED.md#7-완료-정의-red-선행만))
