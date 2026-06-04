@@ -1,0 +1,10 @@
+.venv/
+__pycache__/
+
+# Cursor MCP (로컬·인증 정보 — 커밋 금지)
+.cursor/mcp.json
+*.py[cod]
+.pytest_cache/
+*.egg-info/
+dist/
+build/
