@@ -44,7 +44,7 @@ Harness·규칙이 없으면 RED 설계·FAIL 검증이 성립하지 않는다.
 
 ### 1.3 개발 환경
 
-- [ ] venv 생성 · `pip install -e ".[dev]"`
+- [x] venv 생성 · `pip install -e ".[dev]"`
 - [ ] `python -m pytest tests/test_harness_ecb.py -v` → **4 passed** 확인
 
 ---
@@ -101,8 +101,8 @@ Harness·규칙이 없으면 RED 설계·FAIL 검증이 성립하지 않는다.
 | 선행 | C2C · AAA · G1→`[(2,3),(4,4)]` · [Report/03 D-LOC-01](../src/MagicSquare_1004/Report/03.MagicSquare_Session4_RED_TestPlan_Report.md) | [x] |
 | 선행 | 10선: 해당 없음 (좌표만) | [x] |
 | 선행 | pytest: `tests/entity/test_d_loc_01.py::test_d_loc_01_blank_coords_row_major` | [x] |
-| 실행 | `tests/entity/test_d_loc_01.py` 스켈레톤 | [ ] |
-| 실행 | pytest **FAIL** (exit ≠ 0) | [ ] |
+| 실행 | `tests/entity/test_d_loc_01.py` 스켈레톤 | [x] |
+| 실행 | pytest **FAIL** (exit ≠ 0) | [x] |
 | 다음 | `/green-minimal` → `entity.loc.find_blank_coords` | [ ] |
 
 ### 3.2 Boundary — U-IN-01 + U-IN-02 (2 ID 1 묶음)
@@ -112,8 +112,8 @@ Harness·규칙이 없으면 RED 설계·FAIL 검증이 성립하지 않는다.
 | 선행 | U-IN-01: `None` → `"E003"` | [x] |
 | 선행 | U-IN-02: 3×3 → `"E001"` | [x] |
 | 선행 | When: `validate_input(grid)` | [x] |
-| 실행 | `tests/boundary/test_u_in_01.py`, `test_u_in_02.py` | [ ] |
-| 실행 | pytest **FAIL** | [ ] |
+| 실행 | `tests/boundary/test_u_in_01.py`, `test_u_in_02.py` | [x] |
+| 실행 | pytest **FAIL** | [x] |
 | 다음 | `/green-minimal` → `boundary.input.validate_input` | [ ] |
 
 ### 3.3 Logic — D-VAL (Mom Test · 설계 예정)
@@ -169,9 +169,9 @@ Skill `magic-square-tdd` — RED 설계 시 매번 확인:
 
 ## 6. 권장 다음 작업 (한 번에 1묶음)
 
-1. [ ] §1.3 venv · harness **4 passed**
-2. [ ] §3.1 D-LOC-01 — `/red-skeleton` → `/tdd-red` → FAIL 로그
-3. [ ] §3.2 U-IN-01/02 — boundary RED 스켈레톤 → FAIL
+1. [ ] §1.3 harness smoke **4 passed** (venv ✅)
+2. [x] §3.1 D-LOC-01 — RED 스켈레톤 · pytest FAIL
+3. [x] §3.2 U-IN-01/02 — RED 스켈레톤 · pytest FAIL
 4. [ ] §3.3 D-VAL-03 — `/red-test-plan` AAA 작성 후 RED
 
 ---

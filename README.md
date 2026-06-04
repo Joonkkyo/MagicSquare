@@ -163,7 +163,8 @@ MagicSquare_XX/
 - [x] Command `/tdd-red`, `/review-ecb`
 - [ ] Command `/red-test-plan`, `/red-skeleton` (XX 미추가)
 - [x] `pyproject.toml` · ECB `src/`·`tests/` 골격 · `grid_g1` · harness smoke
-- [ ] venv · `pip install -e ".[dev]"` · `pytest tests/test_harness_ecb.py` **4 passed**
+- [x] venv · `pip install -e ".[dev]"`
+- [ ] `pytest tests/test_harness_ecb.py` **4 passed**
 
 ### 2. RED 묶음 1건당 선행 (`/red-test-plan`)
 
@@ -191,8 +192,8 @@ MagicSquare_XX/
 
 | Test ID | Track | 선행 (Ask) | RED 실행 |
 |---------|-------|------------|----------|
-| **D-LOC-01** | Logic | [x] | [ ] |
-| **U-IN-01**, **U-IN-02** | UI | [x] | [ ] |
+| **D-LOC-01** | Logic | [x] | [x] 스켈레톤 FAIL |
+| **U-IN-01**, **U-IN-02** | UI | [x] | [x] 스켈레톤 FAIL |
 | D-VAL-03 → D-VAL-05 → … | Logic | [ ] | [ ] |
 | U-IN-03~05 · U-OUT-01~02 | UI | [ ] | [ ] |
 
@@ -200,9 +201,10 @@ MagicSquare_XX/
 
 ### 4. 권장 다음 (한 묶음씩)
 
-1. [ ] §1 venv · harness **4 passed**
-2. [ ] **D-LOC-01** — `/red-skeleton` → `/tdd-red` → FAIL
-3. [ ] **U-IN-01/02** — boundary RED → FAIL
-4. [ ] **D-VAL-03** — 선행 AAA 설계 후 RED
+1. [ ] §1 harness smoke **4 passed**
+2. [x] **D-LOC-01** — RED 스켈레톤 · pytest FAIL
+3. [x] **U-IN-01/02** — RED 스켈레톤 · pytest FAIL
+4. [ ] **D-LOC-01** — `/tdd-red` (assert Then) 또는 `/green-minimal`
+5. [ ] **D-VAL-03** — 선행 AAA 설계 후 RED
 
 **RED 선행 완료 정의:** §2 전부 [x] + §3 해당 묶음 «선행» [x] ([TODO_RED.md §7](TODO_RED.md#7-완료-정의-red-선행만))
