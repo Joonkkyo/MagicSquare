@@ -83,8 +83,8 @@ python -m pytest tests/ -v
 | ID | PRD | 요약 | 상태 |
 |----|-----|------|------|
 | D-VAL-01~05 | FR-VAL-01~05 | 행·열·`\`·`/`·10선 합 = 34 | ⏳ |
-| D-LOC-01 | FR-LOC-01 | 빈칸 2곳 좌표 (1-index) | ⏳ |
-| D-SOL-01 | FR-SOL-01 | 빈칸 대입 풀이 | ⏳ |
+| D-LOC-01 | FR-LOC-01 | 빈칸 2곳 좌표 (1-index) | ✅ GREEN |
+| D-SOL-01 | FR-SOL-01 | 빈칸 대입 풀이 (G1 Step A + golden) | ✅ GREEN |
 | U-IN-01~05 | FR-IN-01~05 | 입력 검증 | ⏳ |
 | U-OUT-01~02 | FR-OUT-01~02 | 성공/실패 출력 | ⏳ |
 
@@ -192,7 +192,8 @@ MagicSquare_XX/
 
 | Test ID | Track | 선행 (Ask) | RED 실행 |
 |---------|-------|------------|----------|
-| **D-LOC-01** | Logic | [x] | [x] 스켈레톤 FAIL |
+| **D-LOC-01** | Logic | [x] | [x] GREEN PASS |
+| **D-SOL-01** | Logic | [x] | [x] GREEN PASS + golden |
 | **U-IN-01**, **U-IN-02** | UI | [x] | [x] 스켈레톤 FAIL |
 | D-VAL-03 → D-VAL-05 → … | Logic | [ ] | [ ] |
 | U-IN-03~05 · U-OUT-01~02 | UI | [ ] | [ ] |
@@ -204,7 +205,7 @@ MagicSquare_XX/
 1. [ ] §1 harness smoke **4 passed**
 2. [x] **D-LOC-01** — RED 스켈레톤 · pytest FAIL
 3. [x] **U-IN-01/02** — RED 스켈레톤 · pytest FAIL
-4. [ ] **D-LOC-01** — `/tdd-red` (assert Then) 또는 `/green-minimal`
-5. [ ] **D-VAL-03** — 선행 AAA 설계 후 RED
+4. [x] **D-LOC-01** · **D-SOL-01** — GREEN PASS (Golden Master 준비)
+5. [ ] `/golden-master` 회귀 또는 **D-VAL-03** RED
 
 **RED 선행 완료 정의:** §2 전부 [x] + §3 해당 묶음 «선행» [x] ([TODO_RED.md §7](TODO_RED.md#7-완료-정의-red-선행만))
