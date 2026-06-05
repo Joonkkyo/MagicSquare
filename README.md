@@ -88,19 +88,28 @@ python -m pytest tests/ -v
 | U-IN-01~05 | FR-IN-01~05 | 입력 검증 | ⏳ |
 | U-OUT-01~02 | FR-OUT-01~02 | 성공/실패 출력 | ⏳ |
 
-## 프로젝트 구조 (목표)
+## 프로젝트 구조 (Harness)
 
 ```
 MagicSquare_XX/
-├── .cursorrules
 ├── pyproject.toml
 ├── README.md
-├── docs/PRD.md
-├── Report/
-├── Prompting/
-├── .cursor/
-├── src/entity|control|boundary/
-└── tests/entity|control|boundary/
+├── src/
+│   ├── entity/
+│   │   └── constants.py      # SSOT (34, 4, 16, 0)
+│   ├── control/
+│   │   └── flow.py           # placeholder
+│   └── boundary/
+│       ├── input.py          # U-IN (placeholder)
+│       └── output.py         # U-OUT (placeholder)
+└── tests/
+    ├── conftest.py           # grid_g1
+    ├── _approval.py          # Golden Master
+    ├── test_harness_ecb.py   # smoke (4 passed)
+    ├── entity/               # Logic Track D-*
+    ├── control/
+    ├── boundary/             # UI Track U-*
+    └── golden/
 ```
 
 ## 문서
@@ -135,7 +144,9 @@ MagicSquare_XX/
 | 항목 | 상태 |
 |------|------|
 | README | ✅ |
-| PRD · Report/01 · 코드 · 테스트 | ⏳ |
+| ECB Harness (`pyproject.toml`, `src/`, `tests/`) | ✅ |
+| PRD · Report/01 · `.cursorrules` | ⏳ |
+| D-* / U-* RED·GREEN 테스트 | ⏳ |
 
 1. Mom Test → Report/01 · PRD  
 2. 세션 3 — Rule · Command · Skill · Test Loop  
